@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Produtos </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-item lines="nome" *ngIf="listaProdutos.length === 0">
+    <!-- Exibe uma mensagem quando não tem nenhum registro -->
+    <ion-label>Nenhum registro encontrado...</ion-label>
+  </ion-item>
+
+  <div class="center">
+    <ion-thumbnail lines="none" *ngIf="listaProdutos.length === 0">
+      <img src="assets/img/semresultados.png" />
+    </ion-thumbnail>
+  </div>
+
+  <!-- Percorre a lista de produtos para exibir na tela -->
+  <ion-item-sliding *ngFor="let prod of listaProdutos">
+    <ion-item lines="full">
+      <ion-label>{{prod.nome}}</ion-label>
+      <!-- Exibe o nome do produto -->
+      <ion-label slot="end">
+        {{prod.valor | currency:'BRL':'R$ '}}
+        <!-- Exibe o valor do produto e formata sua exibição com o pipe -->
+      </ion-label>
+    </ion-item>
+    <!-- Exibe os botões de alterar e excluir -->
+    <ion-item-options side="end">
+      <!-- Exibe o botão de alterar e leva para a rota do formulário de alteração -->
+      <ion-item-option
+        color="warning"
+        routerLink="/produtos/alterar-produto/{{prod.id}}"
+      >
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-item-option>
+      <!-- Exibe o botão de exclusão e chama o método de exclusão -->
+      <ion-item-option color="danger" (click)="deletarProduto(prod.id)">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+  <!-- Exibe o botão ir ao formulário de cadastro -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/produtos/cadastro-produto">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
