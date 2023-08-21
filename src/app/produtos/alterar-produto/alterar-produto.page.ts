@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/type-annotation-spacing */
 /* eslint-disable @typescript-eslint/dot-notation */
 import { Component, OnInit } from '@angular/core';
 // Importação do Serviço de Produto
@@ -22,12 +23,12 @@ export class AlterarProdutoPage implements OnInit {
     private rotaAtiva: ActivatedRoute // Instancia o gerenciador de rotas ativas
   ) {
     // Pega o ID que veio pela rota e salva dentro da propriedade id do produto
-    this.produto.id = this.rotaAtiva.snapshot.params.id;
+    this.produto.id = this.rotaAtiva.snapshot.params['id'];
   }
 
   ngOnInit() {
     // Busca os dados do produto com o ID que veio pela rota
-    this.prodService.buscarPorId(this.produto.id).subscribe(dados => {
+    this.prodService.buscarPorId(this.produto.id).subscribe((dados:any) => {
       this.produto.nome = dados['nome'];
       this.produto.valor = dados['valor'];
     });
